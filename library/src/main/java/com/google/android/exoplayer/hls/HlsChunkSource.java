@@ -255,7 +255,11 @@ public class HlsChunkSource implements HlsTrackSelector.Output {
       prepareCalled = true;
       try {
         trackSelector.selectTracks(masterPlaylist, this);
-        selectTrack(0);
+        if(getTrackCount() > 0){
+          selectTrack(0);
+        } else {
+            e = new IllegalStateException("No tracks found");
+        }
       } catch (IOException e) {
         fatalError = e;
       }
